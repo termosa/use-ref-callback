@@ -1,12 +1,12 @@
 import React from 'react'
 
-import { useMyHook } from 'use-last-ref'
+import { useRefCallback } from 'use-ref-callback'
 
 const App = () => {
-  const example = useMyHook()
+  const example = useRefCallback(1)
   return (
     <div>
-      {example}
+      {example.current}
     </div>
   )
 }

@@ -1,14 +1,14 @@
 {
-  "name": "use-last-ref-example",
-  "homepage": "https://termosa.github.io/use-last-ref",
+  "name": "use-ref-callback-example",
+  "homepage": "https://termosa.github.io/use-ref-callback",
   "version": "0.0.0",
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "react": "file:../node_modules/react",
-    "react-dom": "^16.9.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-scripts": "^3.0.1",
-    "use-last-ref": "file:.."
+    "use-ref-callback": "file:.."
   },
   "scripts": {
     "start": "react-scripts start",

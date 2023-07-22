@@ -1,6 +1,6 @@
 {
-  "short_name": "use-last-ref",
-  "name": "use-last-ref",
+  "short_name": "use-ref-callback",
+  "name": "use-ref-callback",
   "start_url": "./index.html",
   "display": "standalone",
   "theme_color": "#000000",

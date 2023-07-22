@@ -1,23 +1,10 @@
-import * as React from 'react';
+import * as React from 'react'
 
-export const useMyHook = () => {
-  let [{
-    counter
-  }, setState] = React.useState<{
-    counter: number;
-  }>({
-    counter: 0
-  });
-
-  React.useEffect(() => {
-    let interval = window.setInterval(() => {
-      counter++;
-      setState({counter})
-    }, 1000)
-    return () => {
-      window.clearInterval(interval);
-    };
-  }, []);
-
-  return counter;
+export function useRefCallback<T extends undefined |((...args: any[]) => any)>(callback: T): T {
+  const ref = React.useRef<T>(callback)
+  ref.current = callback
+  const memoized = React.useCallback(((...args) => ref.current?.(...args)), []);
+  return ref.current && memoized as T;
 };
+
+export default useRefCallback

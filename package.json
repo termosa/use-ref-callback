@@ -1,10 +1,10 @@
 {
-  "name": "use-last-ref",
-  "version": "1.0.0",
-  "description": "Constantly updating ref value from the argument",
+  "name": "use-ref-callback",
+  "version": "0.0.1",
+  "description": "Handy hook to define or wrap argument callback to pass to memoized components",
   "author": "termosa",
   "license": "MIT",
-  "repository": "termosa/use-last-ref",
+  "repository": "termosa/use-ref-callback",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
@@ -17,14 +17,14 @@
     "test": "cross-env CI=1 react-scripts test --env=jsdom",
     "test:watch": "react-scripts test --env=jsdom",
     "build": "rollup -c && tsc -d --emitDeclarationOnly --noEmit false --declarationDir dist",
+    "lint": "ts-standard",
     "start": "rollup -c -w",
     "prepare": "npm run build",
     "predeploy": "cd example && npm install && npm run build",
     "deploy": "gh-pages -d example/build"
   },
-  "dependencies": {},
   "peerDependencies": {
-    "react": "^16.9.0"
+    "react": "^16.9.0 || ^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
@@ -44,7 +44,15 @@
     "react-test-renderer": "^16.9.0",
     "rollup": "^2.26.9",
     "rollup-plugin-peer-deps-external": "^2.2.0",
+    "ts-standard": "^11.0.0",
     "tslib": "^2.0.1",
     "typescript": "^3.2.4"
+  },
+  "ts-standard": {
+    "project": "./tsconfig.json",
+    "include": ["/src/**/*"],
+    "ignore": [
+      "/src/react-app-env.d.ts"
+    ]
   }
 }

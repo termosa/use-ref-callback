@@ -1,29 +1,46 @@
-import { useMyHook } from './'
-import { renderHook, act } from "@testing-library/react-hooks";
+import { useRefCallback } from './'
+import { renderHook } from '@testing-library/react-hooks'
 
-// mock timer using jest
-jest.useFakeTimers();
+describe('useRefCallback', () => {
+  it('calls and returns the value of the very last passed function', () => {
+    const firstCb = jest.fn().mockReturnValue(0)
+    const { result, rerender } = renderHook<() => number, () => number>(
+      (cb) => useRefCallback(cb),
+      { initialProps: firstCb }
+    )
 
-describe('useMyHook', () => {
-  it('updates every second', () => {
-    const { result } = renderHook(() => useMyHook());
+    const secondCb = jest.fn().mockReturnValue(1)
+    rerender(secondCb)
 
-    expect(result.current).toBe(0);
+    expect(result.current()).toBe(1)
+    expect(firstCb).not.toHaveBeenCalled()
+    expect(secondCb).toHaveBeenCalledTimes(1)
 
-    // Fast-forward 1sec
-    act(() => {
-      jest.advanceTimersByTime(1000);
-    });
+    const thirdCb = jest.fn().mockReturnValue(2)
+    rerender(thirdCb)
 
-    // Check after total 1 sec
-    expect(result.current).toBe(1);
+    expect(result.current()).toBe(2)
+    expect(firstCb).not.toHaveBeenCalled()
+    expect(secondCb).toHaveBeenCalledTimes(1)
+    expect(thirdCb).toHaveBeenCalledTimes(1)
+  })
 
-    // Fast-forward 1 more sec
-    act(() => {
-      jest.advanceTimersByTime(1000);
-    });
+  it('always returns the same reference of the function (memoized)', () => {
+    const { result, rerender } = renderHook<() => number, () => number>(
+      (cb) => useRefCallback(cb),
+      { initialProps: () => 0 }
+    )
 
-    // Check after total 2 sec
-    expect(result.current).toBe(2);
+    const firstResult = result.current;
+
+    rerender(() => 1);
+    const secondResult = result.current;
+    secondResult();
+
+    rerender(() => 2);
+    const thirdResult = result.current;
+
+    expect(firstResult).toBe(secondResult);
+    expect(secondResult).toBe(thirdResult);
   })
 })
