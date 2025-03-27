@@ -1,6 +1,6 @@
 {
   "name": "use-ref-callback",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Handy hook to define or wrap argument callback to pass to memoized components",
   "author": "termosa",
   "license": "MIT",
